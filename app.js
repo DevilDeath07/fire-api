@@ -6,7 +6,7 @@ app.get('/',(req,res) =>{
     res.json({mes : "HelloW Bala!"});
 });
 
-app.use('/crackers', router);
+app.use('/api/crackers', router);
 
 app.listen(port,() =>{
     console.log(`Server is run on port http://127.0.0.1:${port}`);
