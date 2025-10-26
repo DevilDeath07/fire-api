@@ -3,6 +3,12 @@ import router from './routes/crackers.route.js';
 import connectDB from './lib/db.js';
 const app = express();
 const port = 3000;
+//data understanding middlewares
+app.use(express.json());
+app.use(express.urlencoded({extended : true}));
+
+
+
 //connect to mongodb
 connectDB();
 app.get('/',(req,res) =>{

@@ -6,9 +6,12 @@ export const crackersIndex = (req, res) => {
 };
 
 
-// controllers/crackers.controllers.js (must include .js extension if using ESM)
 export const crackersCreate = (req, res) => {
-  res.send('Creating a new cracker');
+  //id, title, description, price, imageUrl
+  //create a new cracker
+  console.log(req.body);
+  return res.json(req.body);
+  
 };
 
 
