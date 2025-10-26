@@ -3,6 +3,7 @@ import {
     crackersIndex,
     crackersCreate,
     crackersGetById,
+    crackersUpdateById,
     crackersDeleteById
  } from '../controllers/crackers.controllers.js';
 const router = express.Router();
@@ -14,7 +15,8 @@ router.post('/', crackersCreate);
 
 //R - read a single cracker by id
 router.get('/:id', crackersGetById);
-
+//U - update a cracker by id
+router.put('/:id', crackersUpdateById);
 //D - Deleting a cracker by id
 router.delete('/:id', crackersDeleteById);
 

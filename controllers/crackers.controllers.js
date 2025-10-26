@@ -1,8 +1,13 @@
 import Cracker from '../models/cracker.model.js';
 
 // List all crackers
-export const crackersIndex = (req, res) => {
-  res.send('List of all crackers');
+export const crackersIndex = async (req, res) => {
+  try {
+    const crackers = await Cracker.find();
+    return res.status(200).json(crackers);
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
 };
 
 
@@ -29,11 +34,54 @@ export const crackersCreate = async (req, res) => {
 
 
 // Get cracker by ID
-export const crackersGetById = (req, res) => {
-  res.send('Getting a single cracker by ID');
+export const crackersGetById = async(req, res) => {
+  try {
+    const crackerId = req.params.id; // Example: /api/crackers/1
+
+    // Find the cracker by the custom "id" field
+    const cracker = await Cracker.findOne({ id: crackerId });
+
+    if (!cracker) {
+      return res.status(404).json({ message: 'Cracker not found' });
+    }
+
+    return res.status(200).json(cracker);
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+
+};
+
+//upadate cracker by ID
+export const crackersUpdateById = async (req, res) => {
+  //validate the request data
+  try {
+    const updatedcracker = await Cracker.findOneAndUpdate(
+      { id: req.params.id },
+      req.body,
+      { new: true }
+    );
+    if (!updatedcracker) {
+      return res.status(404).json({ message: 'Cracker not found' });
+    }
+    return res.status(200).json(updatedcracker);
+  } catch (error) {
+    return res.status(400).json({ error: error.message });
+  }
 };
 
 // Delete cracker by ID
-export const crackersDeleteById = (req, res) => {
-  res.send('Deleting a single cracker by ID');
+export const crackersDeleteById = async (req, res) => {
+  try {
+    const crackerId = req.params.id;
+    const cracker = await Cracker.findOne({ id: crackerId });
+    if (!cracker) {
+      return res.status(404).json({ message: 'Cracker not found' });
+    }
+    await Cracker.deleteOne({ id: crackerId });
+    return res.status(204).send();
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
 };
+
