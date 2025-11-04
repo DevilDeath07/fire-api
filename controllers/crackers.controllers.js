@@ -21,7 +21,8 @@ export const crackersCreate = async (req, res) => {
     id : req.body.id,
     title : req.body.title,
     price : req.body.price,
-    imageUrl : req.body.imageUrl
+    imageUrl : req.body.imageUrl,
+    category : req.body.category
   })
   //successful or error
   try {
